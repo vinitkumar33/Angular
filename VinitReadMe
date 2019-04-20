@@ -1,0 +1,157 @@
+Installations
+
+npm install bootstrap font-awesome
+import it in style.css
+Create a folder products under app
+Then create template inside that folder
+Create the Component now and include it inside appcomponent.ts's template
+We also need to include out component in the array of declarations in the app.module.ts
+
+
+
+
+---------------
+
+
+Shortcuts are defined in package.json for example "npm start" to start the app
+
+/*
+Angular component = Template(View layout created with html)
+-----------------
+Component is defined using class.
+Decorator is used to define the metadata.
+use export keyword to be able to use it in different components.
+data is defined as property of a class.
+
+  + Class (Code supporting view created with typescript. Class contains properties ie data and methods+
+  + Metadata (Extra data for angular. It is defined with decorator. Decorator is a function which adds
+  metadata to a class, its property or its method arguments).
+
+  Root component of application is called AppComponent.
+
+Component = template + class with properties and methods + metadata
+AppComponent belongs to AppModule. AppModule bootstraps this component with this module
+
+
+
+*/
+Boot Strapping : tell angular to load our application.
+First we need index.html to host our application
+Then we define our root angular module  to bootstrap our root component
+
+Angular module
+---------------
+app.module.ts defines the angular module details.ngModule properties are arrays.
+@NgModule({
+  declarations: [ => Vinit: Which components belong to this module.
+    AppComponent //Our directives,components and pipes are declared here
+  ],
+  imports: [ => Vinit: Externals modules that we want to be availabe to the components of this module
+    BrowserModule //directives,components and pipes from other sources (eg angular and third parties) are imported here
+  ],
+  bootstrap: [AppComponent] => Vinit: Defines the startup component of the application. It sud contain
+  the selector that we use in the index.html file.
+})
+In the current project, main.ts tells about the bootstrap module name (AppModule in our case)
+and main.ts in declared as the main in angular configuration file angular.json.
+---------------
+Linked template:
+There are other ways to define a template other than inline in the actual component called linked template.
+we need to use templateUrl property instead of template property.
+
+-----------------
+Bindings
+Coordinates communication between component class and its template and the templates raises
+events to intract back with the component
+Binding syntax is always defines in the template.
+Different types of Binding
+1.Interpolation - one way binding from class property to template.
+    Template
+    <h1>{{title}}</h1>
+    <h1>{{'Vinit' + getTitle()}}</h1>
+    <h1 innerText={{title}}></h1>
+
+
+
+----------------------------
+Angular Built-in directives
+*ngIf
+*ngFor
+star at the beginning tells that these directives are structural directives
+
+
+-----------------------
+Property-Binding
+
+One-way=>
+Element property gets bind to the template expression
+<img [src]='product.imgUrl'> => binding target (ie src) is always inclosed inside square bracket
+And binding source is always defined inside a quote
+Note : We can also use interpolation for this
+    <img src={{product.imgUrl}}> 
+    <img src='http://google'{{product.imgUrl}}
+
+Two-way binding =>
+To display two way binding we use ngModel directive
+<input [(ngModel)] = 'listFilter'>
+
+-----------------------
+Event Binding
+<button (click)='toggleImage()'> => Target event is inclosed in small brackets
+
+---------------------
+Transforming data with pipes
+Transforms bound properties before display. Angular has predefined built-in pipes
+eg date, number, json etc
+eg: {{product.productCode | lowercase}} => converts code to lowercase
+also used in property binding
+<img [title]='product.productCode | lowercase'/>
+pipe chaining is also possible
+
+-------------------
+Interfaces
+Also used as a datatype.
+eg: export interface IProduct {
+    productId: number;
+    productName: string;
+}
+
+----------------
+Encapsulate component style
+ styles and styleUrls tag in the onenote
+
+-----------------------
+Component Lifecycles
+create ## Render ## Create and Render Children ## Process changes ## Destroy
+OnInit : To Iitialize new things/ Perform component initialization and data retrieval 
+OnChange : Action after change to input properties
+OnDestroy: Perform Cleanup
+
+We can implement these interfaces and then override those methods
+
+------------------
+Custom pipes
+  convertToSpaces is a custom pipe defined
+  implement PipeTransform and override the method transform as
+  transform(value: string, character: string): string { Vinit: Value is the value passed, characher is the second 
+  argument passed to our pipe and then it has a return type as string.
+    return value.replace(character, ' ');
+  }
+  Vinit: To invoke this custom pipe we need to do 
+  <td>{{ product.productCode | lowercase | convertToSpaces : '-'}}</td>
+
+  -------------
+  List filtering
+  Please see the example in product-list-component.ts for the filtered products
+
+
+  ----------
+  Nested components pending
+
+  --------
+  Service and dependency injection
+Service is a class with focused purpose
+
+
+
+
