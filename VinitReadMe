@@ -7,9 +7,6 @@ Then create template inside that folder
 Create the Component now and include it inside appcomponent.ts's template
 We also need to include out component in the array of declarations in the app.module.ts
 
-
-
-
 ---------------
 
 
